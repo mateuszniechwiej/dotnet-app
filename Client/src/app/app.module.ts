@@ -16,7 +16,8 @@ import { ListDetailsComponent } from './components/list-details/list-details.com
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
