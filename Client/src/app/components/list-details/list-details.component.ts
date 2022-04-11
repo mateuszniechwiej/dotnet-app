@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { List } from 'src/app/model/list.model';
 import { ListService } from 'src/app/service/list.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,12 +17,13 @@ export class ListDetailsComponent implements OnInit {
     listItem: '',
   };
 
-  // message = '';
+
   constructor(
+    private toastr: ToastrService,
     private listService: ListService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (!this.viewMode) {
@@ -40,21 +42,25 @@ export class ListDetailsComponent implements OnInit {
   }
 
   updateList(): void {
-    this.listService.update(this.currentList.id, this.currentList).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (err) => console.error(err),
-    });
+    this.listService.update(this.currentList.id, this.currentList)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.toastr.success('This country was updated successfully!', 'Updated!');
+        },
+        error: (err) => console.error(err)
+      });
   }
 
   deleteList(): void {
-    this.listService.delete(this.currentList.id).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.router.navigate(['/lists']);
-      },
-      error: (err) => console.error(err),
-    });
+    this.listService.delete(this.currentList.id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.toastr.warning('This List was deleted', 'Delete Confirmed')
+          this.router.navigate(['/lists']);
+        },
+        error: (err) => console.error(err)
+      });
   }
 }

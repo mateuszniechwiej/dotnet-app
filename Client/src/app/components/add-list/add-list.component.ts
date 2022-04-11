@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { List } from 'src/app/model/list.model';
 import { ListService } from 'src/app/service/list.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-list',
@@ -13,7 +14,9 @@ export class AddListComponent implements OnInit {
     listItem: '',
   }
   created = false;
-  constructor(private listService: ListService) { }
+  
+  constructor(private listService: ListService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -25,7 +28,7 @@ export class AddListComponent implements OnInit {
   .subscribe({
     next: (res) => {
       console.log(res)
-      this.created = true;
+      this.toastr.success('List created', 'Successfully Added')
     },
     error: (err) => console.log(err)
   });

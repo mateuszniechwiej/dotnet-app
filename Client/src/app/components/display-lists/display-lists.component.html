@@ -1,5 +1,5 @@
-<div class="list row">
-    <div class="col-md-6">
+<div class="list row ">
+    <div class="col-md-6 mt-3">
         <h4>Display Lists</h4>
         <ul class="list-group">
             <li class="list-group-item" *ngFor="let list of lists; let i = index" [class.active]="i == currentIndex"
@@ -7,9 +7,6 @@
                 List id: {{ list.id }}
             </li>
         </ul>
-        <button class="m-3 btn btn-sm btn-danger" (click)="removeAllLists()">
-            Remove All
-        </button>
     </div>
     <div class="col-md-6">
         <app-list-details [viewMode]="true" [currentList]="currentList"></app-list-details>

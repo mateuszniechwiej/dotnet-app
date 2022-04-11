@@ -1,15 +1,14 @@
 <div>
-    <div class="submit-form">
+    <div class="submit-form col-md-6">
         <div *ngIf="!created">
+            <h3>Create new List!</h3>
+            <hr>
             <div class="form-group">
-                <label for="description">List</label>
+                <label for="description"><strong><h4>List Item</h4></strong></label>
                 <input class="form-control" id="listItem" required [(ngModel)]="list.listItem" name="listItem" />
             </div>
-            <button (click)="saveList()" class="btn btn-success mt-3">Submit</button>
-        </div>
-        <div *ngIf="created">
-            <h4>List was created successfully!</h4>
-            <button class="btn btn-success " (click)="newList()">Add</button>
+            <button (click)="saveList()" class="btn btn-success m-1 p-2">Add</button>
+            <a routerLink="../" class="btn btn-info m-1 p-2">Back to Lists</a>
         </div>
     </div>
 </div> 

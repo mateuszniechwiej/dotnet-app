@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { List } from 'src/app/model/list.model';
 import { ListService } from 'src/app/service/list.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-display-lists',
@@ -12,7 +13,8 @@ export class DisplayListsComponent implements OnInit {
   currentList: List = {};
   currentIndex = -1;
   itemList = '';
-  constructor(private listService: ListService) {}
+  constructor(private listService: ListService,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.displayLists();
@@ -40,6 +42,7 @@ export class DisplayListsComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.refreshList();
+        this.toastr.error('All lists deleted', 'Deleted');
       },
       error: (e) => console.error(e),
     });
