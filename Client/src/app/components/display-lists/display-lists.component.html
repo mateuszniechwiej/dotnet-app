@@ -4,11 +4,14 @@
         <ul class="list-group">
             <li class="list-group-item" *ngFor="let list of lists; let i = index" [class.active]="i == currentIndex"
                 (click)="setActiveList(list, i)">
-                {{ list.id }}
+                List id: {{ list.id }}
             </li>
         </ul>
         <button class="m-3 btn btn-sm btn-danger" (click)="removeAllLists()">
             Remove All
         </button>
+    </div>
+    <div class="col-md-6">
+        <app-list-details [viewMode]="true" [currentList]="currentList"></app-list-details>
     </div>
 </div>

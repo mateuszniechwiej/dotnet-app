@@ -1,1 +1,44 @@
-<p>list-details works!</p>
+<div *ngIf="viewMode; else editable" class="mt-3">
+    <div *ngIf="currentList.id">
+        <h4>List Detail</h4>
+        <div>
+            <label><strong>Id number: </strong></label>
+            {{ currentList.id }}
+        </div>
+        <div>
+            <label><strong>Item List: </strong></label>
+            {{ currentList.listItem }}
+        </div>
+        <a class="btn btn-warning mt-3" routerLink="/lists/{{ currentList.id }}">
+            Edit
+        </a>
+    </div>
+    <div *ngIf="!currentList">
+        <br />
+        <p>Please click on a List...</p>
+    </div>
+</div>
+<ng-template #editable>
+    <div *ngIf="currentList.id" class="edit-form">    
+        <form>
+            <div class="form-group">
+                <h4>List ID : {{ currentList.id }}</h4>
+                <hr>
+                <label for="listItem"><h4>List Item:</h4></label>
+                <input type="text" class="form-control" id="listItem" [(ngModel)]="currentList.listItem"
+                    name="listItem" />
+            </div>
+        </form>
+        <button class="btn btn-danger m-1" (click)="deleteList()">
+            Delete
+        </button>
+        <button type="submit" class="btn btn-success m-1" (click)="updateList()">
+            Update
+        </button>
+        <a routerLink="../" class="btn btn-info m-1">Back to Lists</a>
+    </div>
+    <div *ngIf="!currentList.id">
+        <br />
+        <p>Cannot access this List...</p>
+    </div>
+</ng-template>
