@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.Data;
 using Api.Model;
+using Api.DAL;
 
 namespace Api.Controllers
 {
@@ -15,26 +16,25 @@ namespace Api.Controllers
     [ApiController]
     public class ListsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IListRepository _listRepository;
 
-        public ListsController(DataContext context)
+        public ListsController(IListRepository listRepository)
         {
-            _context = context;
+            _listRepository = listRepository;
         }
 
         // GET: api/Lists
         [HttpGet]
         public async Task<ActionResult<IEnumerable<List>>> GetLists()
         {
-            return await _context.Lists.ToListAsync();
+            return Ok(await _listRepository.GetAllAsync());
         }
 
         // GET: api/Lists/5
         [HttpGet("{id}")]
         public async Task<ActionResult<List>> GetList(int id)
         {
-            var list = await _context.Lists.FindAsync(id);
-
+            var list = await _listRepository.GetListByIdAsync(id);
             if (list == null)
             {
                 return NotFound();
@@ -46,31 +46,10 @@ namespace Api.Controllers
         // PUT: api/Lists/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutList(int id, List list)
+        public async Task<ActionResult<List>> PutList(int id, List list)
         {
-            if (id != list.Id)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(list).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ListExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            await _listRepository.Update(id, list);
             return NoContent();
         }
 
@@ -79,9 +58,7 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<ActionResult<List>> PostList(List list)
         {
-            _context.Lists.Add(list);
-            await _context.SaveChangesAsync();
-
+            await _listRepository.Insert(list);
             return CreatedAtAction("GetList", new { id = list.Id }, list);
         }
 
@@ -89,21 +66,13 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteList(int id)
         {
-            var list = await _context.Lists.FindAsync(id);
+            var list = await _listRepository.Delete(id);
             if (list == null)
             {
                 return NotFound();
             }
 
-            _context.Lists.Remove(list);
-            await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool ListExists(int id)
-        {
-            return _context.Lists.Any(e => e.Id == id);
         }
     }
 }
