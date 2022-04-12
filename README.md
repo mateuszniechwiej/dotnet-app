@@ -42,13 +42,14 @@ with MS SQL for the database.
 ## Project Goal
 
 The assignment is to build a web application using the following technologies:
-• Microsoft Visual Studio solution. :heavy_check_mark:
-• UI in Angular. Backend in C#. :heavy_check_mark:
-• SQL Server for persistence. :heavy_check_mark:
-• Use raw SQL statements in the data access layer. :heavy_check_mark:
-• App is demonstrated locally. Optionally on Azure. :heavy_check_mark:
-The assignment deliveries are:
-• Git repository. Preferably private GitHub repository with shared access. Please share access only after when the assessment is complete. :heavy_check_mark:
+
+- Microsoft Visual Studio solution. :heavy_check_mark:
+- UI in Angular. Backend in C#. :heavy_check_mark:
+- SQL Server for persistence. :heavy_check_mark:
+- Use raw SQL statements in the data access layer. :heavy_check_mark:
+- App is demonstrated locally. Optionally on Azure. :heavy_check_mark:
+  The assignment deliveries are:
+- Git repository. Preferably private GitHub repository with shared access. Please share access only after when the assessment is complete. :heavy_check_mark:
 
 
 ## Technologies Used
@@ -88,7 +89,7 @@ The assignment deliveries are:
 1. To test API I've used built-in Swagger.
 
 
-Comments: GET, POST, PUT, DELETE List tested(img :point_up_2:)
+Comments: GET, POST, PUT, DELETE List tested.
 
 1. UI test:
 
